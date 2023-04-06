@@ -1,0 +1,22 @@
+{
+  "root": true,
+  "project": {
+    "name": "expo-app"
+  },
+  "api": {
+    "projectId": "wt6zdfqu",
+    "dataset": "production"
+  },
+  "plugins": [
+    "@sanity/base",
+    "@sanity/default-layout",
+    "@sanity/default-login",
+    "@sanity/desk-tool"
+  ],
+  "parts": [
+    {
+      "name": "part:@sanity/base/schema",
+      "path": "./schemas/schema"
+    }
+  ]
+}
