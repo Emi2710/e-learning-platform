@@ -14,10 +14,10 @@ export interface Class {
     
 }
 
-type ModuleReference = {
+export interface ModuleReference  {
   _id: string;
   name: string;
-  lessonsReferences: LessonsReferences;
+  lessonsReferences: LessonReference[];
 };
 
 type LessonReference = {

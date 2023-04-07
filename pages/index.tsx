@@ -3,22 +3,21 @@ import Head from 'next/head'
 
 
 import { GetStaticProps } from 'next'
-import { Class, ModuleReference } from '../typings'
-import { fetchClass } from '../utils/fetchClass'
-import { fetchModules } from '../utils/fetchModules'
+import { sanityClient } from "../client/sanity"
+
+import { Class } from '../typings'
 
 import ClassInfo from "../components/ClassInfo"
-import Modules from "../components/Modules"
 
 
 type Props = {
-  classInfo: Class[]
-  //modules: ModuleReference[];
+  classes: Class[]
+  
 }
 
 
 
-const Home = ({classInfo, /*modules*/}: Props) => {
+const Home = ({classes}: Props) => {
 
 
   return (
@@ -28,8 +27,7 @@ const Home = ({classInfo, /*modules*/}: Props) => {
         </Head>
         <main>         
   
-            <ClassInfo classInfo={classInfo} />
-            <Modules /*modules={modules}*/ />
+            <ClassInfo classes={classes} />
         
         </main>
         
@@ -44,13 +42,23 @@ export default Home;
 
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const classInfo: Class[] = await fetchClass();
-  //const modules: ModuleReference[] = await fetchModules();
-
-  return {
-    props: {
-      classInfo,
-      //modules,
+  const classes = await sanityClient.fetch(`*[_type == "classes"]{
+    _id,
+    name,
+    studying, 
+    startDate,
+    studentsNumber,
+    modulesReferences[]->{
+      _id,
+      name,
+      lessonsReferences[]->{
+        _id,
+        title,
+        body
+      }
     }
-  }
+  }`)
+  return { props: { classes } }
 }
+
+
