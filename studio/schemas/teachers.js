@@ -16,7 +16,7 @@ export default {
     {
       name: 'imgUrl',
       title: 'Profile picture',
-      type: 'string',
+      type: 'image',
     },
     {
       name: 'classReferences',

@@ -14,6 +14,14 @@ export default {
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'lessons' }] }],
     },
+    {
+
+     name: 'classRef',
+     title: 'Class Reference',
+     type: 'reference',
+     to: [{type: 'classes'}],
+     
+    }
     
     
   ],
