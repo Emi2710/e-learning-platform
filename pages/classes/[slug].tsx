@@ -1,10 +1,15 @@
 import { GetStaticProps } from 'next';
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useRouter } from 'next/router';
+
 import PortableText from 'react-portable-text';
 import { sanityClient } from '../../client/sanity';
 import { Class } from '../../typings';
+import secureLocalStorage from  "react-secure-storage";
 
 import Link from 'next/link';
+
+
 
 
 
@@ -14,38 +19,68 @@ interface Props {
 
 
 const ClassInfo = ({data}: Props) => {
+
+    const router = useRouter();
+
+    function logOut() {
+    //sessionStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('user');
+    secureLocalStorage.removeItem('isLoggedIn')
+    router.push("/login")
+    }
+
+
     
-  return (
-    <div>
-        <div className="font-bold">
 
-            <p>{data.name}</p>
-            <p>Start date: {data.startDate}</p>
-            <p>Students number: {data.studentsNumber}</p>
-            <p>Studying: {data.studying}</p>
+  const isLoggedIn = secureLocalStorage.getItem('isLoggedIn');
+    
+  return (    
+    <>
+        {isLoggedIn ? (
+            <div>
 
-        </div>
-        <div>
-            {data?.modulesReferences?.map((module) => (
-                <div key={module._id}>
-                    <p>{module.name}</p>
-                    <div>
-                        {module.lessonsReferences?.map((lesson) => (
-                            <div key={lesson._id}>
-                                <Link href={`/lessons/${lesson.slug}`}>
-                                    <p>{lesson.title}</p>    
-                                </Link>
-                                
-                            </div>
-                        ))}
-                    </div>
+                <div className="font-bold">
+
+                    <p>{data.name}</p>
+                    <p>Start date: {data.startDate}</p>
+                    <p>Students number: {data.studentsNumber}</p>
+                    <p>Studying: {data.studying}</p>
+                    <p>Teacher: {data.classTeacher.name}</p>
+
                 </div>
 
-            ))}
-        </div>
-    </div>
-  )
-}
+                <div>
+                    {data?.modulesReferences?.map((module) => (
+                        <div key={module._id}>
+                            <p>{module.name}</p>
+                            <div>
+                                {module.lessonsReferences?.map((lesson) => (
+                                    <div key={lesson._id}>
+                                        <Link href={`/lessons/${lesson.slug}`}>
+                                            <p>{lesson.title}</p>    
+                                        </Link>
+                                        
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                    ))}
+                </div>
+
+                <div className='absolute bottom-0 left-0'>
+                    <button onClick={logOut}>Log out</button>
+                </div>
+
+            </div>
+        ): (
+      <div>
+          <p>You need to login to access this page</p>
+          <Link href='/login'>Login</Link>
+      </div>
+    )}
+    </>    
+    )}
 
 
 export async function getStaticPaths() {
@@ -82,6 +117,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         startDate,
         endDate,
         studentsNumber,
+        classTeacher -> {
+            name,
+            imgUrl,
+        },
         modulesReferences[]->{
         _id,
         name,

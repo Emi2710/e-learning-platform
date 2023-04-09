@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { sanityClient } from '../client/sanity';
 import { ClassLogin } from '../typings';
+import secureLocalStorage from  "react-secure-storage";
+
+
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -15,6 +18,8 @@ const LoginPage = () => {
     if (user) {
       // store user data in session storage
       sessionStorage.setItem('user', JSON.stringify(user));
+      secureLocalStorage.setItem('isLoggedIn', 'true')
+
       // redirect to home page
       router.push(`/classes/${user.slug.current}`);
       
@@ -64,3 +69,5 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+

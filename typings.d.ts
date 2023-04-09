@@ -9,10 +9,17 @@ export interface Class {
     startDate: string;
     endDate: string;
     studentsNumber: number;
+    classTeacher: Teacher;
     modulesReferences: ModulesReferences;
     
     
 }
+
+export interface Teacher  {
+  _id: string;
+  name: string;
+  imgUrl: any;
+};
 
 export interface ModuleReference  {
   _id: string;
