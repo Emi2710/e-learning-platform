@@ -21,11 +21,30 @@ export interface ModuleReference  {
 };
 
 type LessonReference = {
+  _id: string;
   title: string;
+  slug: {
+        current: string;
+    };
   body: [object];
 };
 
 
 type ModulesReferences = Array<ModuleReference>;
 type LessonsReferences = Array<LessonReference>;
+
+export interface ClassLogin {
+    _id : string;
+    _createdAt: string;
+    name: string;
+    password: string;
+    slug: {
+        current: string;
+    };
+    
+    
+    
+}
+
+
 
