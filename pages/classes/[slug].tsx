@@ -2,6 +2,8 @@ import { GetStaticProps } from 'next';
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router';
 
+import Head from 'next/head';
+
 import PortableText from 'react-portable-text';
 import { sanityClient } from '../../client/sanity';
 import { Class } from '../../typings';
@@ -36,6 +38,9 @@ const ClassInfo = ({data}: Props) => {
     
   return (    
     <>
+    <Head>
+        <title>{data.name}</title>
+    </Head>
         {isLoggedIn ? (
             <div>
 
