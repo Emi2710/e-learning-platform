@@ -9,6 +9,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'classIdentifier',
+      title: 'Class Identifier',
+      type: 'string',
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',

@@ -43,7 +43,7 @@ type LessonsReferences = Array<LessonReference>;
 export interface ClassLogin {
     _id : string;
     _createdAt: string;
-    name: string;
+    classIdentifier: string;
     password: string;
     slug: {
         current: string;

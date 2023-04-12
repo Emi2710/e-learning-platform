@@ -10,8 +10,15 @@ import { Class } from '../../typings';
 import secureLocalStorage from  "react-secure-storage";
 
 import Link from 'next/link';
-
-
+import Layout from '../../components/Layout';
+import logo from '../../assets/expo-logo.svg';
+import moon from '../../assets/moon.svg';
+import hamnight from '../../assets/hamburger-night.svg'
+import Image from 'next/image';
+import teacher from '../../assets/teacher-icon.svg';
+import time from '../../assets/time-icon.svg';
+import group from '../../assets/group-icon.svg';
+import play from '../../assets/play-icon.svg';
 
 
 
@@ -28,7 +35,7 @@ const ClassInfo = ({data}: Props) => {
     //sessionStorage.removeItem('isLoggedIn');
     sessionStorage.removeItem('user');
     secureLocalStorage.removeItem('isLoggedIn')
-    router.push("/login")
+    router.push("/")
     }
 
 
@@ -42,27 +49,50 @@ const ClassInfo = ({data}: Props) => {
         <title>{data.name}</title>
     </Head>
         {isLoggedIn ? (
-            <div>
+            <Layout data={data}>
+              <div className='flex justify-between p-5'>
+                <Image src={logo} alt='expovision logo' />
+                <div className='flex'>
+                  <Image src={moon} alt="moon icon" className='mr-3' />
+                  <Image src={hamnight} alt="hamburger menu light"className='' />
+                </div>
+              </div>
 
-                <div className="font-bold">
+                <div className="p-3 md:p-5">
 
-                    <p>{data.name}</p>
-                    <p>Start date: {data.startDate}</p>
-                    <p>Students number: {data.studentsNumber}</p>
-                    <p>Studying: {data.studying}</p>
-                    <p>Teacher: {data.classTeacher.name}</p>
+                    <h1 className='font-bold text-2xl md:text-3xl py-5'>{data.name}</h1>
+                    <div className='opacity-80 text-lg'>
+                      <div className='flex my-1'>
+                        <Image src={teacher} alt="teacher icon" />
+                        <p className='pl-3'>{data.classTeacher.name}</p>
+                      </div>
+                      <div className='flex my-1'>
+                        <Image src={time} alt="time icon" />
+                        <p className='pl-3'>{data.startDate}</p>
+                      </div>
+                      <div className='flex my-1'>
+                        <Image src={group} alt="group icon" />
+                        <p className='pl-3'>{data.studentsNumber} человек</p>
+                      </div>  
+                    </div>
+                    
+                    
+                    
+                    
+                    
 
                 </div>
 
-                <div>
+                <div className='md:flex md:ml-5'>
                     {data?.modulesReferences?.map((module) => (
-                        <div key={module._id}>
-                            <p>{module.name}</p>
+                        <div key={module._id} className="bg-white bg-opacity-20 my-5 py-5 md:px-12 px-3 mx-2 md:ml-5 rounded-xl md:w-max">
+                            <h3 className='text-2xl font-bold mb-3'>{module.name}</h3>
                             <div>
                                 {module.lessonsReferences?.map((lesson) => (
-                                    <div key={lesson._id}>
+                               <div key={lesson._id} className="flex"> 
+                                        <Image src={play} alt="play-icon" />
                                         <Link href={`/lessons/${lesson.slug}`}>
-                                            <p>{lesson.title}</p>    
+                                            <p className='text-lg opacity-80 pb-1 pl-2'>{lesson.title}</p>    
                                         </Link>
                                         
                                     </div>
@@ -80,7 +110,7 @@ const ClassInfo = ({data}: Props) => {
                     <button onClick={logOut}>Log out</button>
                 </div>
 
-            </div>
+            </Layout>
         ): (
       <div>
           <p>You need to login to access this page</p>

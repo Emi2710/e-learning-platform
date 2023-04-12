@@ -6,6 +6,11 @@ import PortableText from 'react-portable-text';
 import { sanityClient } from '../../client/sanity';
 import secureLocalStorage from  "react-secure-storage";
 
+import Image from 'next/image';
+import logo from '../../assets/expo-logo.svg';
+import moon from '../../assets/moon.svg';
+import hamnight from '../../assets/hamburger-night.svg'
+
 interface Props {
     lesson: LessonReference;
 }
@@ -32,9 +37,19 @@ const Lesson = ({lesson}: Props) => {
       <Head>
         <title>{lesson.title}</title>
       </Head>
+      
       <div>
       {isLoggedIn ? (
-      <article className='jakarta max-w-3xl mx-auto p-5'>
+      <div>
+        <div className='flex justify-between p-5'>
+                <Image src={logo} alt='expovision logo' />
+                <div className='flex'>
+                  <Image src={moon} alt="moon icon" className='mr-3' />
+                  <Image src={hamnight} alt="hamburger menu light"className='' />
+                </div>
+        </div>
+
+        <article className='max-w-3xl mx-auto p-5'>
           <h1 className='text-2xl md:text-3xl mt-10 mb-3 font-bold'>{lesson.title}</h1>
           
           <div className='mt-10 portable-text leading-7 text-lg'>
@@ -42,6 +57,7 @@ const Lesson = ({lesson}: Props) => {
               dataset= {process.env.NEXT_PUBLIC_SANITY_DATASET}
               projectId= {process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
               content={lesson.body}
+              className="portable-text"
               serializers={{
                   h1: (props: any) => (
                       <h1 className='text-2xl md:text-3xl font-bold my-5' {...props} />
@@ -55,12 +71,19 @@ const Lesson = ({lesson}: Props) => {
                   link: ({href, children}: any) => (
                       <a href={href} className='text-blue-500 hover:underline'>{children}</a>
                   ),
+                  p: (props: any) => (
+                      <p className='my-5' {...props} />
+                  ),
                   
 
               }}
               />
           </div>
-      </article>) : (
+      </article>
+
+
+      </div>
+      ) : (
         <div>
           <p>You need to login to access this page</p>
           <Link href='/'>Login</Link>

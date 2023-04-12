@@ -8,6 +8,15 @@
 
 body {
     background-color: #2C1F52;
-    font-family: 'Manrope', 'sans-serif';
+    font-family: 'Manrope',
+    sans-serif;
     color: #fff;
+}
+
+.portable-text p {
+    margin: 35px 0;
+}
+
+.portable-text ul li {
+    margin: 15px 0;
 }
