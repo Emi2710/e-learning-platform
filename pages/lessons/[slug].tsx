@@ -63,7 +63,7 @@ const Lesson = ({lesson}: Props) => {
       </article>) : (
         <div>
           <p>You need to login to access this page</p>
-          <Link href='/login'>Login</Link>
+          <Link href='/'>Login</Link>
         </div>
       )}
       

@@ -72,6 +72,9 @@ const ClassInfo = ({data}: Props) => {
 
                     ))}
                 </div>
+                <div>
+                    
+                </div>
 
                 <div className='absolute bottom-0 left-0'>
                     <button onClick={logOut}>Log out</button>
@@ -81,7 +84,7 @@ const ClassInfo = ({data}: Props) => {
         ): (
       <div>
           <p>You need to login to access this page</p>
-          <Link href='/login'>Login</Link>
+          <Link href='/'>Login</Link>
       </div>
     )}
     </>    
