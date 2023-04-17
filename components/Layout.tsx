@@ -40,7 +40,7 @@ export default function Layout({children}: Props) {
   const classId = localStorage.getItem('classId');
   const [modules, setModules] = useState<Class[]>([])
   const [open, setOpen] = useState(false);
-  const [mode, setMode] = useState<"light" | "dark">("light");
+  const [mode, setMode] = useState<"light" | "dark">("dark");
 
   const showNavbar = () => {
     setOpen(!open)
@@ -100,7 +100,7 @@ export default function Layout({children}: Props) {
     <div>
       
       {modules?.map((classes) => (
-        <div>
+        <div key={classes._id}>
 
         <div className='flex justify-between p-5'>
                 <Link href={`/classes/${classes.slug.current}`}>
