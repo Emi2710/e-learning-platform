@@ -1,4 +1,7 @@
+
 import React, {useState, useEffect} from 'react'
+import { useRouter } from 'next/router';
+
 import { Class } from '../typings'
 import { sanityClient } from '../client/sanity';
 import { GetStaticProps } from 'next';
@@ -9,6 +12,7 @@ import secureLocalStorage from  "react-secure-storage";
 import logo from '../assets/expo-logo.svg';
 import moon from '../assets/moon.svg';
 import hamnight from '../assets/hamburger-night.svg'
+import logout from '../assets/logout.svg';
 import Image from 'next/image';
 import Navbar from './Navbar';
 import Link from 'next/link';
@@ -20,8 +24,26 @@ type Props = {children: any}
 
 export default function Layout({children}: Props) {
 
+  const router = useRouter();
+
+    function logOut() {
+      sessionStorage.removeItem('user');
+      secureLocalStorage.removeItem('isLoggedIn')
+      localStorage.removeItem('classId')
+      router.push("/")
+    }
+
+
+
   const classId = localStorage.getItem('classId');
   const [modules, setModules] = useState<Class[]>([])
+  const [open, setOpen] = useState(false);
+
+  const showNavbar = () => {
+    setOpen(!open)
+  }
+
+  
 
   useEffect(() => {
     const query = `
@@ -54,47 +76,48 @@ export default function Layout({children}: Props) {
 
   return (
     <div>
-      <div className='flex justify-between p-5'>
-                <Image src={logo} alt='expovision logo' />
-                <div className='flex'>
-                  <Image src={moon} alt="moon icon" className='mr-3' />
-                  <Image src={hamnight} alt="hamburger menu light"className='' />
-                </div>
-      </div>
+      
       {modules?.map((classes) => (
         <div>
-          {classes.modulesReferences?.map((module) => (
-            <div key={module._id}>
-              <p>{module.name}</p>
-              {module.lessonsReferences?.map((lesson) => (
-                <div key={lesson._id}>
-                  <Link href={`/lessons/${lesson.slug}`}>
-                    <p>{lesson.title}</p>  
-                  </Link>
-                  
+
+        <div className='flex justify-between p-5'>
+                <Link href={`/classes/${classes.slug.current}`}>
+                  <Image src={logo} alt='expovision logo' />
+                </Link>
+                
+                <div className='flex'>
+                  <Image src={logout} alt="logout icon" width={25} onClick={logOut} className="cursor-pointer" />
+                  <Image src={moon} alt="moon icon" className='mx-3 cursor-pointer'/>
+                  <Image src={hamnight} alt="hamburger menu light" onClick={showNavbar} className='cursor-pointer' />
+                </div>
+        </div>
+
+          {open && (
+
+            <div>
+              {classes.modulesReferences?.map((module) => (
+                <div key={module._id} className="p-5 bg-white bg-opacity-20">
+                  <ul>
+                    <li className='font-bold text-xl my-2'>{module.name}</li>
+                  </ul>
+                  {module.lessonsReferences?.map((lesson) => (
+                    <ul key={lesson._id}>
+                      <Link href={`/lessons/${lesson.slug}`}>
+                        <li className='pl-2 opacity-80 my-1'>{lesson.title}</li>  
+                      </Link>
+                      
+                    </ul>
+                  ))}
                 </div>
               ))}
             </div>
-          ))}
+
+          )}
+
         </div>
+        
       ))}
-
-      {console.log(modules)}
-      
-
         {children}
     </div>
   )
 }
-
-//&& classIdentifier == ${secureLocalStorage.getItem('classId')}
-
-/*modulesReferences[]->{
-          _id,
-          name,
-          lessonsReferences[]->{
-              _id,
-              title,
-              "slug": slug.current,
-          }
-        }*/

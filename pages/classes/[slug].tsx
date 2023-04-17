@@ -100,9 +100,7 @@ const ClassInfo = ({data}: Props) => {
                     
                 </div>
 
-                <div className='absolute bottom-0 left-0'>
-                    <button onClick={logOut}>Log out</button>
-                </div>
+                
 
             </Layout>
         ): (

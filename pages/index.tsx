@@ -7,6 +7,7 @@ import Image from 'next/image';
 import logo from '../assets/expo-logo.svg';
 import moon from '../assets/moon.svg';
 import hand from '../assets/waving-hand.svg';
+import Link from 'next/link';
 
 
 
@@ -48,7 +49,10 @@ const LoginPage = () => {
   return (
     <div>
       <div className='flex justify-between p-5'>
-        <Image src={logo} alt="logo expovision"  />
+        <Link href="#">
+          <Image src={logo} alt="logo expovision"  />  
+        </Link>
+        
         <Image src={moon} alt="moon icon"  />
       </div>
       
