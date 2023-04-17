@@ -10,6 +10,7 @@ import Image from 'next/image';
 import logo from '../../assets/expo-logo.svg';
 import moon from '../../assets/moon.svg';
 import hamnight from '../../assets/hamburger-night.svg'
+import Layout from '../../components/Layout';
 
 interface Props {
     lesson: LessonReference;
@@ -40,14 +41,8 @@ const Lesson = ({lesson}: Props) => {
       
       <div>
       {isLoggedIn ? (
-      <div>
-        <div className='flex justify-between p-5'>
-                <Image src={logo} alt='expovision logo' />
-                <div className='flex'>
-                  <Image src={moon} alt="moon icon" className='mr-3' />
-                  <Image src={hamnight} alt="hamburger menu light"className='' />
-                </div>
-        </div>
+      <Layout>
+        
 
         <article className='max-w-3xl mx-auto p-5'>
           <h1 className='text-2xl md:text-3xl mt-10 mb-3 font-bold'>{lesson.title}</h1>
@@ -71,9 +66,7 @@ const Lesson = ({lesson}: Props) => {
                   link: ({href, children}: any) => (
                       <a href={href} className='text-blue-500 hover:underline'>{children}</a>
                   ),
-                  p: (props: any) => (
-                      <p className='my-5' {...props} />
-                  ),
+                  
                   
 
               }}
@@ -82,7 +75,7 @@ const Lesson = ({lesson}: Props) => {
       </article>
 
 
-      </div>
+      </Layout>
       ) : (
         <div>
           <p>You need to login to access this page</p>

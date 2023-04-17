@@ -23,6 +23,8 @@ const LoginPage = () => {
       // store user data in session storage
       sessionStorage.setItem('user', JSON.stringify(user));
       secureLocalStorage.setItem('isLoggedIn', 'true')
+      localStorage.setItem('classId', username)
+
 
       // redirect to home page
       router.push(`/classes/${user.slug.current}`);

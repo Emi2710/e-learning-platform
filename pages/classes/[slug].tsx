@@ -35,6 +35,7 @@ const ClassInfo = ({data}: Props) => {
     //sessionStorage.removeItem('isLoggedIn');
     sessionStorage.removeItem('user');
     secureLocalStorage.removeItem('isLoggedIn')
+    localStorage.removeItem('classId')
     router.push("/")
     }
 
@@ -49,14 +50,7 @@ const ClassInfo = ({data}: Props) => {
         <title>{data.name}</title>
     </Head>
         {isLoggedIn ? (
-            <Layout data={data}>
-              <div className='flex justify-between p-5'>
-                <Image src={logo} alt='expovision logo' />
-                <div className='flex'>
-                  <Image src={moon} alt="moon icon" className='mr-3' />
-                  <Image src={hamnight} alt="hamburger menu light"className='' />
-                </div>
-              </div>
+            <Layout>
 
                 <div className="p-3 md:p-5">
 
