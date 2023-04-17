@@ -11,10 +11,12 @@ import secureLocalStorage from  "react-secure-storage";
 
 import logo from '../assets/expo-logo.svg';
 import moon from '../assets/moon.svg';
+import sun from '../assets/sun.svg';
 import hamnight from '../assets/hamburger-night.svg'
+import hamlight from '../assets/hamburger-light.svg'
 import logout from '../assets/logout.svg';
 import Image from 'next/image';
-import Navbar from './Navbar';
+import Switch from './Switch';
 import Link from 'next/link';
 
 
@@ -38,6 +40,7 @@ export default function Layout({children}: Props) {
   const classId = localStorage.getItem('classId');
   const [modules, setModules] = useState<Class[]>([])
   const [open, setOpen] = useState(false);
+  const [mode, setMode] = useState<"light" | "dark">("light");
 
   const showNavbar = () => {
     setOpen(!open)
@@ -74,6 +77,25 @@ export default function Layout({children}: Props) {
     }
   }, [classId])
 
+  useEffect(() => {
+    const root = window.document.documentElement;
+    const isDarkMode = mode === "dark";
+
+    root.classList.remove(isDarkMode ? "light" : "dark");
+    root.classList.add(mode);
+
+    localStorage.setItem("mode", mode);
+  }, [mode]);
+
+  const toggleMode = () => {
+    setMode(mode === "light" ? "dark" : "light");
+  };
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem("mode") as "light" | "dark";
+    savedMode && setMode(savedMode);
+  }, []);
+
   return (
     <div>
       
@@ -87,8 +109,13 @@ export default function Layout({children}: Props) {
                 
                 <div className='flex'>
                   <Image src={logout} alt="logout icon" width={25} onClick={logOut} className="cursor-pointer" />
-                  <Image src={moon} alt="moon icon" className='mx-3 cursor-pointer'/>
-                  <Image src={hamnight} alt="hamburger menu light" onClick={showNavbar} className='cursor-pointer' />
+                  {mode === "light" && (<><Image src={sun} alt="sun icon" className='mx-3 cursor-pointer' onClick={toggleMode}/></>)}
+                  {mode === "dark" && (<><Image src={moon} alt="moon icon" className='mx-3 cursor-pointer' onClick={toggleMode}/></>)}
+                  
+                  {mode === "light" && (<><Image src={hamlight} alt="hamburger menu light" onClick={showNavbar} className='cursor-pointer' /></>)}
+                  {mode === "dark" && (<><Image src={hamnight} alt="hamburger menu dark" onClick={showNavbar} className='cursor-pointer' /></>)}
+                  
+                  
                 </div>
         </div>
 
@@ -117,7 +144,10 @@ export default function Layout({children}: Props) {
         </div>
         
       ))}
+
+
         {children}
+        
     </div>
   )
 }

@@ -5,12 +5,26 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap');
 
+:root {
+    /* Light mode variables */
+    --bg-color: #5DAED1;
 
-body {
-    background-color: #2C1F52;
+    /* Dark mode variables */
+    --bg-color-dark: #2C1F52;
+}
+
+body {  
     font-family: 'Manrope',
     sans-serif;
     color: #fff;
+}
+
+.light {
+    background-color: var(--bg-color);
+}
+
+.dark {
+    background-color: var(--bg-color-dark);
 }
 
 .portable-text p {
