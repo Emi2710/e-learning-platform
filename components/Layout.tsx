@@ -1,12 +1,12 @@
-
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { useRouter } from 'next/router';
+
 
 import { Class } from '../typings'
 import { sanityClient } from '../client/sanity';
-import { GetStaticProps } from 'next';
 import secureLocalStorage from  "react-secure-storage";
-
+import { Store } from '../utils/Store';
+import jsCookie from 'js-cookie';
 
 
 import logo from '../assets/expo-logo.svg';
@@ -16,7 +16,6 @@ import hamnight from '../assets/hamburger-night.svg'
 import hamlight from '../assets/hamburger-light.svg'
 import logout from '../assets/logout.svg';
 import Image from 'next/image';
-import Switch from './Switch';
 import Link from 'next/link';
 
 
@@ -78,7 +77,7 @@ export default function Layout({children}: Props) {
   }, [classId])
 
   useEffect(() => {
-    const root = window.document.documentElement;
+    const root = window.document.body;
     const isDarkMode = mode === "dark";
 
     root.classList.remove(isDarkMode ? "light" : "dark");
@@ -101,23 +100,22 @@ export default function Layout({children}: Props) {
       
       {modules?.map((classes) => (
         <div key={classes._id}>
-
-        <div className='flex justify-between p-5'>
+              <div className='flex justify-between p-5'>
                 <Link href={`/classes/${classes.slug.current}`}>
                   <Image src={logo} alt='expovision logo' />
                 </Link>
                 
                 <div className='flex'>
                   <Image src={logout} alt="logout icon" width={25} onClick={logOut} className="cursor-pointer" />
-                  {mode === "light" && (<><Image src={sun} alt="sun icon" className='mx-3 cursor-pointer' onClick={toggleMode}/></>)}
-                  {mode === "dark" && (<><Image src={moon} alt="moon icon" className='mx-3 cursor-pointer' onClick={toggleMode}/></>)}
+                  <Image src={sun} alt="sun icon" className='mx-3 cursor-pointer' onClick={toggleMode}/>
+                  {/*mode === "dark" && (<><Image src={moon} alt="moon icon" className='mx-3 cursor-pointer' onClick={toggleMode}/></>)*/}
                   
                   {mode === "light" && (<><Image src={hamlight} alt="hamburger menu light" onClick={showNavbar} className='cursor-pointer' /></>)}
                   {mode === "dark" && (<><Image src={hamnight} alt="hamburger menu dark" onClick={showNavbar} className='cursor-pointer' /></>)}
                   
                   
                 </div>
-        </div>
+              </div>
 
           {open && (
 
@@ -144,9 +142,14 @@ export default function Layout({children}: Props) {
         </div>
         
       ))}
-
+      <div>
 
         {children}
+        
+      </div>
+
+
+        
         
     </div>
   )

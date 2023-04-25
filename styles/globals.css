@@ -13,19 +13,19 @@
     --bg-color-dark: #2C1F52;
 }
 
-body {  
-    background-color: var(--bg-color-dark);
-    font-family: 'Manrope',
-    sans-serif;
-    color: #fff;
-}
-
 .light {
     background-color: var(--bg-color);
 }
 
 .dark {
     background-color: var(--bg-color-dark);
+}
+
+body {  
+    background-color: var(--bg-color-dark);
+    font-family: 'Manrope',
+    sans-serif;
+    color: #fff;
 }
 
 .portable-text p {
