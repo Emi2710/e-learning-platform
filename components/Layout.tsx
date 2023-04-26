@@ -106,8 +106,8 @@ export default function Layout({children}: Props) {
                 </Link>
                 
                 <div className='flex'>
-                  <Image src={logout} alt="logout icon" width={25} onClick={logOut} className="cursor-pointer" />
-                  <Image src={sun} alt="sun icon" className='mx-3 cursor-pointer' onClick={toggleMode}/>
+                  <Image src={logout} alt="logout icon" width={20} onClick={logOut} className="cursor-pointer" />
+                  <Image src={sun} alt="sun icon" className='mx-3 cursor-pointer' onClick={toggleMode} width={25}/>
                   {/*mode === "dark" && (<><Image src={moon} alt="moon icon" className='mx-3 cursor-pointer' onClick={toggleMode}/></>)*/}
                   
                   {mode === "light" && (<><Image src={hamlight} alt="hamburger menu light" onClick={showNavbar} className='cursor-pointer' /></>)}
