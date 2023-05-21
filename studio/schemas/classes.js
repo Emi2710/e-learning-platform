@@ -1,62 +1,62 @@
 export default {
   name: 'classes',
-  title: 'Classes',
+  title: 'Классы',
   type: 'document',
   fields: [
     {
       name: 'name',
-      title: 'Class Name',
+      title: 'Имя классы',
       type: 'string',
     },
     {
       name: 'classIdentifier',
-      title: 'Class Identifier',
+      title: 'Логин классы',
       type: 'string',
     },
     {
       name: 'slug',
-      title: 'Slug',
+      title: 'URL классы',
       type: 'slug',
       options: {
-        source: 'name',
+        source: 'classIdentifier',
         maxLength: 96,
       },
     },
     {
       name: 'studying',
-      title: 'Studying subject',
+      title: 'Предмет изучения',
       type: 'string',
     },
     {
       name: 'startDate',
-      title: 'Start Date',
+      title: 'Дата начала',
       type: 'string',
     },
     {
       name: 'endDate',
-      title: 'End Date',
+      title: 'Дата окончания',
       type: 'string',
     },
     {
       name: 'studentsNumber',
-      title: 'Students Number',
+      title: 'Количество студентов',
       type: 'number',
     },
     {
       name: 'password',
-      title: 'Password',
+      title: 'Пароль',
       type: 'string',
     },
     {
       name: 'modulesReferences',
-      title: 'Modules studying',
+      title: 'Изучаемые модули',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'modules' }] }],
     },
     {
 
      name: 'classTeacher',
-     title: 'Class Teacher',
+     title: 'Учитель',
      type: 'reference',
      to: [{type: 'teachers'}],
      

@@ -1,26 +1,26 @@
 export default {
   name: 'teachers',
-  title: 'Teachers',
+  title: 'Учителя',
   type: 'document',
   fields: [
     {
       name: 'name',
-      title: 'Name',
+      title: 'Имя',
       type: 'string',
     },
     {
       name: 'work',
-      title: 'Work',
+      title: 'Работа',
       type: 'string',
     },
     {
       name: 'imgUrl',
-      title: 'Profile picture',
+      title: 'Аватар',
       type: 'image',
     },
     {
       name: 'classReferences',
-      title: 'Classes teaching',
+      title: 'Преподаваемые классы',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'classes' }] }],
     },

@@ -1,23 +1,23 @@
 export default {
   name: 'modules',
-  title: 'Modules',
+  title: 'Модули',
   type: 'document',
   fields: [
     {
       name: 'name',
-      title: 'Module Name',
+      title: 'Название модуля',
       type: 'string',
     },
     {
       name: 'lessonsReferences',
-      title: 'Lessons for this module',
+      title: 'Уроки этого модуля',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'lessons' }] }],
     },
     {
 
      name: 'classRef',
-     title: 'Class Reference',
+     title: 'Ссылка на класс',
      type: 'reference',
      to: [{type: 'classes'}],
      

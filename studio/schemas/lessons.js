@@ -1,16 +1,16 @@
 export default {
   name: 'lessons',
-  title: 'Lessons',
+  title: 'Уроки',
   type: 'document',
   fields: [
     {
       name: 'title',
-      title: 'Lesson Name',
+      title: 'Название урока',
       type: 'string',
     },
     {
       name: 'slug',
-      title:'Slug',
+      title:'URL',
       type: 'slug',
       options: {
         source: 'title',
@@ -19,18 +19,18 @@ export default {
     },
     {
       name: 'body',
-      title: 'Body',
+      title: 'Содержание',
       type: 'blockContent',
     },
     {
      name: 'classRef',
-     title: 'Class Reference',
+     title: 'Ссылка на класс',
      type: 'reference',
      to: [{type: 'classes'}],
     },
     {
      name: 'moduleref',
-     title: 'Module Ref',
+     title: 'Ссылка на модуль',
      type: 'reference',
      to: [{type: 'modules'}],
     }
